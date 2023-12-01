@@ -1,5 +1,21 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    
+<div class="h-full bg-green-100">
+    <nav class="p-[20px] h-[65px] max-w-[1400px] ml-auto mr-auto w-full pb-0 flex flex-row content-start justify-between items-end">
+        <div>
+            <a id="start" href="/">
+                <h1 class="text-3xl">Projektanalyse Online <span class="text-[46px]">🔭</span></h1>
+            </a>
+        </div>
+        <div>
+            <a target="_blank" href="/swagger/index.html">
+                <span class="text-xl hover:bg-green-200 border border-1 border-black cursor-pointer p-1 rounded">Entdecke unsere API</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="p-[20px] overflow-y-auto h-[calc(100%-65px)] max-w-[1400px] ml-auto mr-auto w-full">
+        @Body
+    </main>
 </div>
+
