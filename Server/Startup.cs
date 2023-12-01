@@ -54,7 +54,7 @@ namespace API
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapFallbackToPage("_Host.cshtml");
+                endpoints.MapFallbackToPage("/_Host");
             });
         }
     }
