@@ -4,9 +4,4 @@
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="ProjectAnalysisDefinition\" />
-    <Folder Include="ProjectAnalysis\" />
-  </ItemGroup>
-
 </Project>
