@@ -10,13 +10,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>ProjektAnalyse Online</title>
         <base href="~/" />
-        <link rel="icon" href="data:image/svg+xml,">
+        <link rel="icon" href="data:image/svg+xml," />
         <link href="Client.styles.css" rel="stylesheet" />
+        <link href="/dist/output.css"/>
     </head>
     <body>
-        <div>
-            <component type="typeof(WebWasmClient.App)" render-mode="WebAssembly" />
-        </div>
+        
+        <component type="typeof(Client.App)" render-mode="WebAssembly" />
         <script src="_framework/blazor.webassembly.js"></script>
+
     </body>
 </html>
