@@ -6,7 +6,7 @@
         <div class="flex flex-col gap-y-[25px] h-full overflow-y-auto flow-wrap">
             @foreach (var item in analysisPrincipleDTOs)
             {
-                <div class="flex flex-row gap-y-[25px]">
+                <div class="flex flex-row gap-y-[25px] w-full justify-between items-center">
                     <div>
                         <h3 class="text-xl text-bold">@item.Title</h3>
                         <h3 class="text-lg text-semibold">@item.ShortDescription</h3>
@@ -17,13 +17,13 @@
                             }
                         </ul>
                     </div>
-                    <div>
-                        <input type="checkbox" />
+                    <div class="self-center h-[50px]">
+                        <input class="h-[30px] w-[30px]" type="checkbox" @onchange="OnChange" />
                     </div>
                 </div>
             }
 
-            <div class="pt-[25px]">
+            <div class="pt-[15px]">
 
             </div>
 
@@ -34,10 +34,15 @@
 
 
 @code {
-    private List<AnalysisPrinciplesDTO> analysisPrincipleDTOs;
+    [Parameter]
+    public EventCallback<bool> clickedChange { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    [Parameter]
+    public List<AnalysisPrinciplesDTO> analysisPrincipleDTOs { get; set; }
+
+    private void OnChange(ChangeEventArgs args)
     {
-        analysisPrincipleDTOs = await httpClient.GetFromJsonAsync<List<AnalysisPrinciplesDTO>>("api/ProjectAnalysisDefinitions/analysisPrinciples");
+        bool b = (bool)args.Value;
+        clickedChange.InvokeAsync(b);
     }
 }

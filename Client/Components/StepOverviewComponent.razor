@@ -1,0 +1,93 @@
+﻿<div class="h-[70px] rounded-md bg-green-300 mb-[15px] flex flex-row gap-x-[10px] pl-[5px] pt-[5px]">
+    <img class="h-[20px] mt-[5px]" src="/icons/info.png" />
+    @if(Step == CreationProcessStep.Principles)
+    {
+        <div class="flex flex-row justify-between w-full">
+            <div>
+                <h3 class="text-lg text-semibold">Übersicht Handlungsgrundsätze</h3>
+                <h4>Bitte lies die Handlungsgrundätze sorgfältig durch. Wenn du sie dir verinnerlicht hast, kannst du sie anchecken.</h4>
+            </div>
+            <button @onclick="Click" class="bg-gray-300 p-1 px-[8px] text-lg text-bold h-[30px] rounded-md self-end mb-[15px] mr-[15px]">
+                <span class="m-auto">(@(ClickedCount)/6) Nächster Schritt</span>
+            </button>
+        </div>
+    }
+    @if (Step == CreationProcessStep.Economy)
+    {
+        <div class="flex flex-row justify-between w-full">
+            <div>
+                <h3 class="text-lg text-semibold">Analyse der Auswirkungen auf wirtschaftliche Themen</h3>
+                <h4>Bitte schätze die Auswirkungen deines Projekts auf wirtschaftliche Themen sorgfältig ein.</h4>
+            </div>
+            <button @onclick="() => DomainQuestionStepFinished()" class="bg-gray-300 p-1 px-[8px] text-lg text-bold h-[30px] rounded-md self-end mb-[15px] mr-[15px]">
+                <span class="m-auto">(@(ClickedCount)/6) Nächster Schritt</span>
+            </button>
+        </div>
+    }
+    @if (Step == CreationProcessStep.Society)
+    {
+        <div class="flex flex-row justify-between w-full">
+            <div>
+                <h3 class="text-lg text-semibold">Analyse der Auswirkungen auf soziale Themen</h3>
+                <h4>Bitte schätze die Auswirkungen deines Projekts auf soziale Themen sorgfältig ein.</h4>
+            </div>
+            <button @onclick="() => DomainQuestionStepFinished()" class="bg-gray-300 p-1 px-[8px] text-lg text-bold h-[30px] rounded-md self-end mb-[15px] mr-[15px]">
+                <span class="m-auto">(@(ClickedCount)/6) Nächster Schritt</span>
+            </button>
+        </div>
+    }
+    @if (Step == CreationProcessStep.Environment)
+    {
+        <div class="flex flex-row justify-between w-full">
+            <div>
+                <h3 class="text-lg text-semibold">Analyse der Auswirkungen auf umwelt Themen</h3>
+                <h4>Bitte schätze die Auswirkungen deines Projekts auf umwelt Themen sorgfältig ein.</h4>
+            </div>
+            <button @onclick="() => DomainQuestionStepFinished()" class="bg-gray-300 p-1 px-[8px] text-lg text-bold h-[30px] rounded-md self-end mb-[15px] mr-[15px]">
+                <span class="m-auto">(@(ClickedCount)/6) Nächster Schritt</span>
+            </button>
+        </div>
+    }
+    @if (Step == CreationProcessStep.Summary)
+    {
+        <div class="flex flex-row justify-between w-full">
+            <div>
+                <h3 class="text-lg text-semibold">Übersicht über deine Projektanalyse</h3>
+                <h4>Du kannst deine Projektanalyse auch nach vorläufigem Abschluss noch bearbeiten.</h4>
+            </div>
+            <button @onclick="() => DomainQuestionStepFinished()" class="bg-gray-300 p-1 px-[8px] text-lg text-bold h-[30px] rounded-md self-end mb-[15px] mr-[15px]">
+                <span class="m-auto">Abschliessen</span>
+            </button>
+        </div>
+    }
+</div>
+
+
+@code {
+    [Parameter]
+    public int ClickedCount { get; set; }
+
+    [Parameter]
+    public CreationProcessStep Step { get; set; }
+
+    [Parameter]
+    public EventCallback StartStepFinished { get; set; }
+
+    [Parameter]
+    public EventCallback<CreationProcessStep> QuestionDomainStepFinished { get; set; }
+
+    private void Click()
+    {
+        //if (ClickedCount == 6)
+        //{
+        //    StartStepFinished.InvokeAsync();
+        //}
+
+        StartStepFinished.InvokeAsync();
+    }
+
+    private void DomainQuestionStepFinished()
+    {
+        QuestionDomainStepFinished.InvokeAsync(Step);
+    }
+}

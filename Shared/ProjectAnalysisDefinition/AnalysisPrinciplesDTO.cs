@@ -10,6 +10,7 @@ namespace Shared.ProjectAnalysisDefinition
     {
         public string Title { get; set; }
         public string ShortDescription { get; set; }
+        public bool Clicked { get; set; }
         public List<string> Aspects { get; set; }
     }
 }

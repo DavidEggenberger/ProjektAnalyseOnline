@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.ProjectAnalysisDefinition
 {
-    internal class ProjectAnalysisDefinitionDTO
+    public class ProjectAnalysisDefinitionDTO
     {
     }
 }

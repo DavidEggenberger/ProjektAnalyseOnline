@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Features.ProjectAnalysisDefinitionFeature;
 using Server.Features.ProjectAnalysisFeature.Domain;
 using Server.Features.ProjectAnalysisFeature.Infrastructure;
 using Shared.ProjectAnalysis;
@@ -22,6 +23,20 @@ namespace Server.Features.ProjectAnalysisFeature
         public ActionResult<List<ProjectAnalysisDTO>> GetAllProjectAnalyses()
         {
             return Ok(_projectAnalysisRepo.GetProjectAnalyses().Select(p => p.ToDTO()).ToList());
+        }
+
+        [HttpGet("new")]
+        public ActionResult<List<ProjectAnalysisDTO>> GetNewProjectAnalysis()
+        {
+            return Ok(new ProjectAnalysisDTO
+            {
+                CreationDate = DateTime.Now,
+                Answers = ProjectAnalysisDefinition.GetAllQuestions().Select(q => new AnswerDTO
+                {
+                    Question = q.ToDTO(),
+                    Choice = AnswerChoiceDTO.neutral
+                }).ToList()
+            }); 
         }
 
         [HttpGet("{id}")]
