@@ -81,6 +81,7 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
 
         public static IEnumerable<Question> GetAllQuestions()
         {
+            var rnd = new Random();
             return new List<Question>()
             {
                 new Question
@@ -88,84 +89,103 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Wirtschaft,
                     Keyword = "Einkommen",
-                    Text = "Erhöht das Einkommen privater Haushalte"
+                    Text = "Erhöht das Einkommen privater Haushalte",
+                    Date = DateTime.Now.AddHours(-rnd.Next(200))
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Wirtschaft,
                     Keyword = "Lebenskosten",
-                    Text = "Senkt die durchschnittlichen privaten Lebenskosten"
+                    Text = "Senkt die durchschnittlichen privaten Lebenskosten",
+                    Date = DateTime.Now.AddHours(-rnd.Next(200))
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Wirtschaft,
                     Keyword = "Öffentlicher Haushalt",
-                    Text = "Verbessert die öffentlichen Finanzen"
+                    Text = "Verbessert die öffentlichen Finanzen",
+                    Date = DateTime.Now.AddHours(-rnd.Next(200))
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Wirtschaft,
                     Keyword = "Infrastruktur",
-                    Text = "Ausbau und Werterhaltung der öffentlichen Infrastruktur"
+                    Text = "Ausbau und Werterhaltung der öffentlichen Infrastruktur",
+                    Date = DateTime.Now.AddHours(-rnd.Next(200))
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Wirtschaft,
                     Keyword = "Wirtschaftsstruktur",
-                    Text = "Verbessert die Branchenstruktur Fördert Know-how und Innovationskraft Fördert lokale Wertschöpfung Verbessert Arbeitsplatzqualität"
+                    Text = "Verbessert die Branchenstruktur Fördert Know-how und Innovationskraft Fördert lokale Wertschöpfung Verbessert Arbeitsplatzqualität",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Wirtschaft,
                     Keyword = "Markt-Mechanismen",
-                    Text = "Begünstigt die freie Preisbildung und die Kostenwahrheit"
+                    Text = "Begünstigt die freie Preisbildung und die Kostenwahrheit",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Umwelt,
                     Keyword = "Klima",
-                    Text = "Vermindert den Ausstoss klimarelevanter Gase"
+                    Text = "Vermindert den Ausstoss klimarelevanter Gase",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Umwelt,
                     Keyword = "Energie Verbrauch",
-                    Text = "Vermindert den Energieverbrauch"
+                    Text = "Vermindert den Energieverbrauch",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Umwelt,
                     Keyword = "Ressourcen",
-                    Text = "Vermindert den Verbrauch von Rohstoffen und Materialien"
+                    Text = "Vermindert den Verbrauch von Rohstoffen und Materialien",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Umwelt,
                     Keyword = "Schadstoffe und Risiko",
-                    Text = "Vermeidet schädliche Einwirkungen auf die Umwelt und den Wasserhaushalt Reduziert irreversible Umweltschäden"
+                    Text = "Vermeidet schädliche Einwirkungen auf die Umwelt und den Wasserhaushalt Reduziert irreversible Umweltschäden",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Umwelt,
                     Keyword = "Boden",
-                    Text = "Minimiert den Flächenverbrauch Erhält die Bodenfruchtbarkeit"
+                    Text = "Minimiert den Flächenverbrauch Erhält die Bodenfruchtbarkeit",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Umwelt,
                     Keyword = "Naturräume",
-                    Text = "Fördert naturnahe Landschaften Fördert die Artenvielfalt"
+                    Text = "Fördert naturnahe Landschaften Fördert die Artenvielfalt",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
 
                 new Question
@@ -173,21 +193,24 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Gesellschaft,
                     Keyword = "Wohnqualität",
-                    Text = "Fördert Wohnqualität, Erreichbarkeit und funktionale Durchmischung der Siedlungen"
+                    Text = "Fördert Wohnqualität, Erreichbarkeit und funktionale Durchmischung der Siedlungen",                     Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Gesellschaft,
                     Keyword = "Gesundheit",
-                    Text = "Fördert körperliche und psychische Gesundheit, senkt Gesundheitsrisiken"
+                    Text = "Fördert körperliche und psychische Gesundheit, senkt Gesundheitsrisiken",                     Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Gesellschaft,
                     Keyword = "Sicherheit",
-                    Text = "Fördert persönliche Freiheit und Sicherheitsgefühl"
+                    Text = "Fördert persönliche Freiheit und Sicherheitsgefühl",                     Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
@@ -195,13 +218,17 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
                     Domain = QuestionDomain.Gesellschaft,
                     Keyword = "Integration und Partizpation",
                     Text = "Fördert eine ausgewogene Bevölkerungsstruktur und die demokratische Mitbestimmung Fördert die Integration (Arbeitsmarkt/ Gesellschaft) und das Vertrauen (informell/instituionell)"
+                ,                    Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
                     Id = Guid.NewGuid(),
                     Domain = QuestionDomain.Gesellschaft,
                     Keyword = "Bildung und Kultur",
-                    Text = "Fördert Bildungschancen und Bildungsangebote Fördert die kulturelle Vielfalt"
+                    Text = "Fördert Bildungschancen und Bildungsangebote Fördert die kulturelle Vielfalt",
+                                        Date = DateTime.Now.AddHours(-rnd.Next(200))
+
                 },
                 new Question
                 {
@@ -209,6 +236,7 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
                     Domain = QuestionDomain.Gesellschaft,
                     Keyword = "Chancengleichenheit und Solidarität",
                     Text = "Fördert die Chancengleichheit aller Menschen und die Vereinbarkeit von Familie, Beruf sowie ausserberufliches Engagement Fördert die Solidarität (Generationen- und Bevölkerunsgruppen übergreifend, regional und global)"
+                ,                    Date = DateTime.Now.AddHours(-rnd.Next(200))
                 }
             };
         }

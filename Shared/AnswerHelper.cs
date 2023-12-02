@@ -1,7 +1,7 @@
 ﻿using Shared.ProjectAnalysis;
 using System;
 
-namespace Client.Misc
+namespace Shared
 {
     public class AnswerHelper
     {

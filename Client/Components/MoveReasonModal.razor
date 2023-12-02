@@ -1,0 +1,16 @@
+﻿<div class="flex flex-row">
+    <div>
+        <img class="h-[25px]" src="/icons/info.png"/>
+    </div>
+    <div>
+        <h3 class="text-xl font-bold">@Text</h3>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public Action CloseModalCallback { get; set; }
+}

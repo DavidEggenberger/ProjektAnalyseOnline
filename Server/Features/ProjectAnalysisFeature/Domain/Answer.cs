@@ -1,6 +1,7 @@
 ﻿using Server.Features.ProjectAnalysisDefinitionFeature;
 using Shared.ProjectAnalysis;
 using Shared.ProjectAnalysisDefinition;
+using System.Collections.Generic;
 
 namespace Server.Features.ProjectAnalysisFeature.Domain
 {
@@ -9,6 +10,7 @@ namespace Server.Features.ProjectAnalysisFeature.Domain
         public string Begründung { get; set; }
         public AnswerChoice Choice { get; set; }
         public Question Question { get; set; }
+        public List<AnswerChange> Changes { get; set; }
 
         public AnswerDTO ToDTO()
         {

@@ -1,9 +1,16 @@
 ﻿@using Blazored.Modal.Services;
-<div class="w-[200px] h-[225px] bg-green-300 rounded-lg grid grid-rows-[1fr_30px] p-2 pt-3">
+<div class="w-[265px] h-[225px] bg-green-300 rounded-lg grid grid-rows-[1fr_30px] p-2 pt-3">
     <div>
-        <h3 class="text-lg text-semibold">@ProjectAnalysis.ProjectName</h3>
+        <h3 class="text-xl font-bold mb-[10px]">@ProjectAnalysis.ProjectName</h3>
+        <div class="text-md">Gesamt🌍: <label class="font-semibold">@ProjectAnalysis.Overall</label></div>
+        <div class="text-md">Wirtschaft📈: <label class="font-semibold">@ProjectAnalysis.Economic</label></div>
+        <div class="text-md">Gesellschaft👩‍👨‍👦‍👧: <label class="font-semibold">@ProjectAnalysis.Society</label></div>
+        <div class="text-md">Umwelt🌳: <label class="font-semibold">@ProjectAnalysis.Nature</label></div>
     </div>
-    <div class="flex-row content-center justify-self-end">
+    <div class="flex flex-row justify-between">
+        <div class="p-1 rounded-md bg-green-500 text-white">
+            <span>Erstellt: @ProjectAnalysis.CreationDate.ToShortDateString()</span>
+        </div>
         <button @onclick="ShowProjectAnalysis">
             <img class="h-[25px]" src="/icons/link.png" />
         </button>
@@ -35,7 +42,6 @@
         var parameters = new ModalParameters
         {
             { nameof(AnalysisDetailKanbanBoard.ProjectAnalysis), ProjectAnalysis },
-            { nameof(AnalysisDetailKanbanBoard.ModalReference), modalReference },
             { nameof(AnalysisDetailKanbanBoard.CloseModalCallback), (Action)(() => { modalReference.Close(); }) }
         };
 

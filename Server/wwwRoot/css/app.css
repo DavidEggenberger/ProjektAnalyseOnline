@@ -66,3 +66,31 @@
         background: #04AA6D; /* Green background */
         cursor: pointer; /* Cursor on hover */
     }
+.size-large{
+    max-width: 1000px !important;
+}
+
+﻿::deep .reorder-item {
+    cursor: move;
+    user-select: none;
+}
+
+::deep .reorder-item:hover {
+    background: #4cff00;
+}
+
+::deep .reorder-item-active {
+    background: #b200ff;
+}
+
+::deep .reorder-item-dragging {
+    background: #ffd800;
+    box-shadow: 0 4px 20px #ffd800AA;
+    opacity: 0.8;
+    position: absolute;
+    z-index: 999;
+}
+
+    ::deep .reorder-item-dragging:hover {
+        background: #ffd800;
+    }

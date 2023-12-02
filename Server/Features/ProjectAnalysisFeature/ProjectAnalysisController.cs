@@ -54,6 +54,11 @@ namespace Server.Features.ProjectAnalysisFeature
         [HttpPost]
         public ActionResult<Guid> CreateProjectAnalysis([FromBody] ProjectAnalysisDTO projectAnalysisDTO)
         {
+            foreach (var answer in projectAnalysisDTO.Answers)
+            {
+                answer.Question.Date = DateTime.Now;
+            }
+
             var projectAnalysis = ProjectAnalysis.FromDTO(projectAnalysisDTO);
 
             return Ok(_projectAnalysisRepo.AddProjectAnalysis(projectAnalysis));

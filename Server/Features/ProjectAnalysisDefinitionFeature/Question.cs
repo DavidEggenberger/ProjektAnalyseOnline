@@ -10,6 +10,7 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
         public QuestionDomain Domain { get; set; }
         public string Keyword { get; set; }
         public string Text { get; set; }
+        public DateTime Date { get; set; }
 
         public QuestionDTO ToDTO()
         {
@@ -18,7 +19,8 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
                 Domain = (QuestionDomainDTO)Domain,
                 Keyword = Keyword,
                 Text = Text,
-                Id = Id
+                Id = Id,
+                Date = Date
             };
         }
 
@@ -29,6 +31,7 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
                 Domain = ( QuestionDomain)dto.Domain,
                 Keyword = dto.Keyword,
                 Text = dto.Text,
+                Date = dto.Date
             };
         }
     }

@@ -12,5 +12,6 @@ namespace Shared.ProjectAnalysisDefinition
         public QuestionDomainDTO Domain { get; set; }
         public string Keyword { get; set; }
         public string Text { get; set; }
+        public DateTime Date { get; set; }
     }
 }
