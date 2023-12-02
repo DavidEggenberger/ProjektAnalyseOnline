@@ -4,18 +4,23 @@
         <div class="flex flex-col gap-y-[25px] h-full overflow-y-auto flow-wrap">
             @foreach (var answer in ProjectAnalysis.Answers.Where(a => a.Question.Domain == Domain))
             {
-                <div class="flex flex-row gap-y-[25px] w-full justify-between items-center">
-                    <div>
-                        <h3 class="text-xl text-bold">@answer.Question.Keyword</h3>
-                        <h3 class="text-lg text-semibold">@answer.Question.Text</h3>
-                    </div>
-                    <div class="self-end grid place-content-end h-[70px]">
-                        <div class="h-full">
-                            @answer.Choice
+                <div class="w-full">
+                    <div class="flex flex-row gap-y-[25px] w-full justify-between items-center ">
+                        <div>
+                            <h3 class="text-xl text-bold">@answer.Question.Keyword</h3>
+                            <h3 class="text-lg text-semibold">@answer.Question.Text</h3>
                         </div>
-                        <input class="h-[30px] w-[60px]" type="range" min="-3" value="0" max="3" step="1" @onchange="args => OnChange(args, answer)"/>
+                        <div class="self-end grid place-content-end h-[70px]">
+                            <div class="h-full">
+                                <h3 class="w-full text-center">
+                                    @answer.Choice
+                                </h3>
+                            </div>
+                            <input class="h-[50px] w-[170px]" type="range" min="-3" value="0" max="3" step="1" @onchange="args => OnChange(args, answer)" />
+                        </div>
                     </div>
-                </div>
+                    <div class="h-[3px] w-full bg-green-300 mb-[10px]"></div>
+                </div>        
             }
 
             <div class="pt-[15px]">

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Features.ProjectAnalysisFeature.Infrastructure;
+using System.Linq;
 
 namespace Server.Features.ProjectAnalysisFeature
 {
@@ -6,12 +8,19 @@ namespace Server.Features.ProjectAnalysisFeature
     [ApiController]
     public class ProjectAnalysisSearchController : ControllerBase
     {
+        private readonly ProjectAnalysisRepo _projectAnalysisRepo;
+        public ProjectAnalysisSearchController(ProjectAnalysisRepo _projectAnalysisRepo)
+        {
+            this._projectAnalysisRepo = _projectAnalysisRepo;
+        }
+
+
         [HttpGet]
-        public string SearchProjectAnalysis(
+        public ActionResult SearchProjectAnalysis(
             [FromQuery] string keyword
             )
         {
-            return "value";
+            return Ok(_projectAnalysisRepo.SearchProjectAnalyses(keyword).Select(p => p.ToDTO()).ToList());
         }
     }
 }

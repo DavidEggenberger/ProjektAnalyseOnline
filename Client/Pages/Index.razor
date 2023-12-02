@@ -23,7 +23,7 @@
             <div class="h-[60px] flex flex-row gap-x-[15px] pl-[25px] pt-[5px]">
                 <div class="flex flex-col">
                     <label class="font-medium text-sm">Name, Stichwort etc</label>
-                    <input autocomplete="off"
+                    <input autocomplete="off" @bind="SearchTerm" @bind:event="oninput"
                            autocorrect="off"
                            spellcheck="false"
                            class="rounded-md capitalize text-sm h-[30px]"
@@ -35,7 +35,7 @@
                         <option></option>
                     </select>
                 </div>
-                <button class="h-[30px] mt-auto p-1 bg-green-300 cursor-pointer rounded-md mb-[5px]">
+                <button @onclick="() => { SearchTerm = string.Empty; StateHasChanged();  }" class="h-[30px] mt-auto p-1 bg-green-300 cursor-pointer rounded-md mb-[5px]">
                     <span class="text-sm">Filter zurücksetzen</span>
                 </button>
 
@@ -55,6 +55,25 @@
 
 
 @code{
+    private string searchTerm;
+    public string SearchTerm
+    {
+        get { return searchTerm; }
+        set 
+        { 
+            searchTerm = value;
+            if (searchTerm == string.Empty)
+            {
+                ResetFilter();
+            }
+            else
+            {
+                SearchAnalyses();
+            }
+        }
+    }
+
+
 
     [CascadingParameter]
     public IModalService ModalService { get; set; }
@@ -62,13 +81,22 @@
     private IModalReference modalReference;
 
     private List<ProjectAnalysisDTO> projectAnalyses;
+    private List<ProjectAnalysisDTO> backupAnalyses;
 
     protected override async Task OnInitializedAsync()
     {
-        projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>("api/ProjectAnalysis/all");
-        projectAnalyses.AddRange(projectAnalyses); projectAnalyses.AddRange(projectAnalyses);
-        projectAnalyses.AddRange(projectAnalyses);
+        backupAnalyses = projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>("api/ProjectAnalysis/all");
+    }
 
+    private void ResetFilter()
+    {
+        projectAnalyses = backupAnalyses;
+        StateHasChanged();
+    }
+
+    private async Task SearchAnalyses()
+    {
+        projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>($"api/ProjectAnalysisSearch?keyword={SearchTerm}");
     }
 
     private async Task StartProjectAnalysis()

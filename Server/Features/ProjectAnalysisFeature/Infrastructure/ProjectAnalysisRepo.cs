@@ -37,6 +37,11 @@ namespace Server.Features.ProjectAnalysisFeature.Infrastructure
             return projectAnalyses;
         }
 
+        public List<ProjectAnalysis> SearchProjectAnalyses(string searchWord)
+        {
+            return projectAnalyses.Where(s => s.ProjectName.ToLower().Contains(searchWord.ToLower())).ToList();
+        }
+
         public ProjectAnalysis GetProjectAnalysis(Guid id)
         {
             return projectAnalyses.First(p => p.Id == id);

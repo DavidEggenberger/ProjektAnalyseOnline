@@ -58,11 +58,11 @@
                 </div>
                 <div>
                     <h4 class="text-3xl text-bold">Gesellschaftliche Auswirkungen🌳</h4>
-                    <h5>@AnswerHelper.GetOerallChoice(projectAnalysis.Answers.Where(a => a.Question.Domain == QuestionDomainDTO.Wirtschaft).Select(s => ((int)s.Choice - 3)).Aggregate((s, t) => s += t))</h5>
+                    <h5>@AnswerHelper.GetOerallChoice(projectAnalysis.Answers.Where(a => a.Question.Domain == QuestionDomainDTO.Gesellschaft).Select(s => ((int)s.Choice - 3)).Aggregate((s, t) => s += t))</h5>
                 </div>
                 <div>
                     <h4 class="text-3xl text-bold">Umwelt Auswirkungen👩‍👨‍👦‍👧</h4>
-                    <h5>@AnswerHelper.GetOerallChoice(projectAnalysis.Answers.Where(a => a.Question.Domain == QuestionDomainDTO.Wirtschaft).Select(s => ((int)s.Choice - 3)).Aggregate((s, t) => s += t))</h5>
+                    <h5>@AnswerHelper.GetOerallChoice(projectAnalysis.Answers.Where(a => a.Question.Domain == QuestionDomainDTO.Umwelt).Select(s => ((int)s.Choice - 3)).Aggregate((s, t) => s += t))</h5>
                 </div>
             </div>
         }
