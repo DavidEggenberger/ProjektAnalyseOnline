@@ -1008,6 +1008,18 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.outline {
+  outline-style: solid;
+}
+
+.outline-1 {
+  outline-width: 1px;
+}
+
+.outline-black {
+  outline-color: #000;
+}
+
 .hover\:bg-gray-300:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));

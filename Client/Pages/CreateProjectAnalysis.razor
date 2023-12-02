@@ -1,4 +1,4 @@
-﻿@page "/CreateProjectAnalysis"
+﻿@page "/CreateProjectAnalysis/{ProjectName}"
 @inject HttpClient httpClient
 
 <div class="max-w-[1400px] ml-auto mr-auto w-full h-full">
@@ -50,7 +50,7 @@
         @if (currentStep == CreationProcessStep.Summary)
         {
             <div class="flex flex-col gap-y-[15px]">
-                <h3 class="text-4xl text-bold mt-[20px] mb-[5px]">Übersicht über deine Projektanalyse</h3>
+                <h3 class="text-4xl text-bold mt-[20px] mb-[5px]">Übersicht über deine Projektanalyse: @projectAnalysis.ProjectName</h3>
                 <h3 class="text-3xl text-bold">Aggregierte Gesamtauswirkung: @AnswerHelper.GetOerallChoice(projectAnalysis.Answers.Select(s => ((int)s.Choice - 3)).Aggregate((s, t) => s += t))</h3>
                 <div>
                     <h4 class="text-3xl text-bold">Wirtschaftliche Auswirkungen📈</h4>
@@ -74,6 +74,10 @@
 @code {
     private int clickedCount = 0;
     private CreationProcessStep currentStep;
+
+    [Parameter]
+    public string ProjectName { get; set; }
+
     private ProjectAnalysisDTO projectAnalysis;
     private List<AnalysisPrinciplesDTO> analysisPrincipleDTOs;
     private List<QuestionDTO> questions;
@@ -82,6 +86,7 @@
     {
         currentStep = CreationProcessStep.Principles;
         projectAnalysis = await httpClient.GetFromJsonAsync<ProjectAnalysisDTO>("api/ProjectAnalysis/new");
+        projectAnalysis.ProjectName = ProjectName;
         analysisPrincipleDTOs = await httpClient.GetFromJsonAsync<List<AnalysisPrinciplesDTO>>("api/ProjectAnalysisDefinitions/analysisPrinciples");
         questions = await httpClient.GetFromJsonAsync<List<QuestionDTO>>("api/ProjectAnalysisDefinitions/analysisQuestions");
     } 
