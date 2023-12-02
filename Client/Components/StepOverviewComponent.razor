@@ -1,4 +1,7 @@
-﻿<div class="h-[70px] rounded-md bg-green-300 mb-[15px] flex flex-row gap-x-[10px] pl-[5px] pt-[5px]">
+﻿@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<div class="h-[70px] rounded-md bg-green-300 mb-[15px] flex flex-row gap-x-[10px] pl-[5px] pt-[5px]">
     <img class="h-[20px] mt-[5px]" src="/icons/info.png" />
     @if(Step == CreationProcessStep.Principles)
     {
@@ -55,7 +58,7 @@
                 <h3 class="text-lg text-semibold">Übersicht über deine Projektanalyse</h3>
                 <h4>Du kannst deine Projektanalyse auch nach vorläufigem Abschluss noch bearbeiten.</h4>
             </div>
-            <button @onclick="() => DomainQuestionStepFinished()" class="bg-gray-300 p-1 px-[8px] text-lg text-bold h-[30px] rounded-md self-end mb-[15px] mr-[15px]">
+            <button @onclick="CreateProjectAnalysisCallback" class="bg-gray-300 p-1 px-[8px] text-lg text-bold h-[30px] rounded-md self-end mb-[15px] mr-[15px]">
                 <span class="m-auto">Abschliessen</span>
             </button>
         </div>
@@ -74,6 +77,9 @@
     public EventCallback StartStepFinished { get; set; }
 
     [Parameter]
+    public EventCallback CreateProjectAnalysisCallback { get; set; }
+
+    [Parameter]
     public EventCallback<CreationProcessStep> QuestionDomainStepFinished { get; set; }
 
     private void Click()
@@ -89,5 +95,11 @@
     private void DomainQuestionStepFinished()
     {
         QuestionDomainStepFinished.InvokeAsync(Step);
+    }
+
+    private async Task CreateProjectAnalysis()
+    {
+        await CreateProjectAnalysisCallback.InvokeAsync();
+        navigationManager.NavigateTo("/", true);
     }
 }

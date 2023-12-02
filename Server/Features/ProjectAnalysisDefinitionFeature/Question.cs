@@ -21,5 +21,15 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
                 Id = Id
             };
         }
+
+        public static Question FromDTO(QuestionDTO dto)
+        {
+            return new Question
+            {
+                Domain = ( QuestionDomain)dto.Domain,
+                Keyword = dto.Keyword,
+                Text = dto.Text,
+            };
+        }
     }
 }

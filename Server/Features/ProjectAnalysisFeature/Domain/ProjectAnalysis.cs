@@ -29,6 +29,7 @@ namespace Server.Features.ProjectAnalysisFeature.Domain
             {
                 CreationDate= projectAnalysisDTO.CreationDate,
                 ProjectName = projectAnalysisDTO.ProjectName,
+                Answers = projectAnalysisDTO.Answers.Select(a => Answer.FromDTO(a, a.Question)).ToList()
             };
         }
     }

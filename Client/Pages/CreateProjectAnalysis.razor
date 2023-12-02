@@ -1,5 +1,6 @@
 ﻿@page "/CreateProjectAnalysis/{ProjectName}"
 @inject HttpClient httpClient
+@inject NavigationManager navigationManager
 
 <div class="max-w-[1400px] ml-auto mr-auto w-full h-full">
     <div class="h-[65px] w-full flex flex-row gap-x-[20px] mb-[5px]">
@@ -29,7 +30,7 @@
             <h3 class="mt-[-3px]">Kurzbericht</h3>
         </div>
     </div>
-    <StepOverviewComponent Step="currentStep" StartStepFinished="FinishStartingStep" ClickedCount="clickedCount" QuestionDomainStepFinished="domain => DomainChangedCallback(domain)"/>
+    <StepOverviewComponent CreateProjectAnalysisCallback="CreateProjectAnalysisMethod" Step="currentStep" StartStepFinished="FinishStartingStep" ClickedCount="clickedCount" QuestionDomainStepFinished="domain => DomainChangedCallback(domain)" />
     <div class="h-[calc(100%-145px)] overflow-y-auto">
         @if(currentStep == CreationProcessStep.Principles)
         {
@@ -125,5 +126,11 @@
         }
 
         StateHasChanged();
+    }
+
+    private async Task CreateProjectAnalysisMethod()
+    {
+        await httpClient.PostAsJsonAsync("api/projectanalysis", projectAnalysis);
+        navigationManager.NavigateTo("/", true);
     }
 }

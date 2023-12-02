@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Features.ProjectAnalysisFeature.Domain;
 using Server.Features.ProjectAnalysisFeature.Infrastructure;
 using System.Linq;
 
@@ -17,7 +18,8 @@ namespace Server.Features.ProjectAnalysisFeature
 
         [HttpGet]
         public ActionResult SearchProjectAnalysis(
-            [FromQuery] string keyword
+            [FromQuery] string keyword,
+            [FromQuery] AnswerChoice choice
             )
         {
             return Ok(_projectAnalysisRepo.SearchProjectAnalyses(keyword).Select(p => p.ToDTO()).ToList());

@@ -1,9 +1,10 @@
-﻿<div class="w-[200px] h-[225px] bg-green-300 rounded-lg grid grid-rows-[1fr_30px] p-2 pt-3">
+﻿@using Blazored.Modal.Services;
+<div class="w-[200px] h-[225px] bg-green-300 rounded-lg grid grid-rows-[1fr_30px] p-2 pt-3">
     <div>
         <h3 class="text-lg text-semibold">@ProjectAnalysis.ProjectName</h3>
     </div>
     <div class="flex-row content-center justify-self-end">
-        <button>
+        <button @onclick="ShowProjectAnalysis">
             <img class="h-[25px]" src="/icons/link.png" />
         </button>
     </div>
@@ -11,9 +12,33 @@
 
 
 @code {
+    [CascadingParameter]
+    public IModalService ModalService { get; set; }
+
+    private IModalReference modalReference;
+
     [Parameter]
     public Action CloseModalCallback { get; set; }
 
     [Parameter]
     public ProjectAnalysisDTO ProjectAnalysis { get; set; }
+
+    private async Task ShowProjectAnalysis()
+    {
+        var modalOptions = new ModalOptions
+            {
+                HideCloseButton = true,
+                Position = ModalPosition.Middle,
+                Size = ModalSize.Large
+            };
+
+        var parameters = new ModalParameters
+        {
+            { nameof(AnalysisDetailKanbanBoard.ProjectAnalysis), ProjectAnalysis },
+            { nameof(AnalysisDetailKanbanBoard.ModalReference), modalReference },
+            { nameof(AnalysisDetailKanbanBoard.CloseModalCallback), (Action)(() => { modalReference.Close(); }) }
+        };
+
+        modalReference = ModalService.Show<AnalysisDetailKanbanBoard>(string.Empty, parameters, modalOptions);
+    }
 }

@@ -1,0 +1,143 @@
+﻿<div class="h-[700px] flex flex-row gap-x-[25px]">
+    <div class="bg-green-300 w-[150px] p-1">
+        <h2>Stark negative Auswirkungen</h2>
+        <Reorder Items="questionsStrongNegative" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.starkNegativ)" TItem="AnswerDTO">
+            @if (context.Question != null)
+            {
+                <div class="mb-2 mx-2">
+                    <h5>@context.Question.Keyword</h5>
+
+                </div>
+            }
+            else
+            {
+                <div class="h-[20px]">
+                    
+                </div>
+            }
+        </Reorder>
+    </div>
+    <div class="bg-green-300 p-1 w-[150px]">
+        <h2>Negative Auswirkungen</h2>
+        <Reorder Items="questionsNegative" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.negativ)">
+            @if (context.Question != null)
+            {
+                <div class="mb-2 mx-2">
+                    <h5>@context.Question.Keyword</h5>
+
+                </div>
+            }
+            else
+            {
+                <div class="h-[20px]">
+
+                </div>
+            }
+        </Reorder>
+    </div>
+    <div class="bg-green-300 p-1 w-[150px]">
+        <h2>Neutrale Auswirkungen</h2>
+        <Reorder Items="questionsNeutral" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.neutral)">
+            @if (context.Question != null)
+            {
+                <div class="mb-2 mx-2">
+                    <h5>@context.Question.Keyword</h5>
+
+                </div>
+            }
+            else
+            {
+                <div class="h-[20px]">
+
+                </div>
+            }
+        </Reorder>
+    </div>
+    <div class="bg-green-300 p-1 w-[150px]">
+        <h2>Positive Auswirkungen</h2>
+        <Reorder Items="questionsPositive" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.positiv)">
+            @if (context.Question != null)
+            {
+                <div class="mb-2 mx-2">
+                    <h5>@context.Question.Keyword</h5>
+
+                </div>
+            }
+            else
+            {
+                <div class="h-[20px]">
+
+                </div>
+            }
+        </Reorder>
+    </div>
+    <div class="bg-green-300 p-1 w-[150px]">
+        <h2>Sehr positive Auswirkungen</h2>
+        <Reorder Items="questionsStrongPositive" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.starkPositiv)">
+            @if (context.Question != null)
+            {
+                <div class="mb-2 mx-2">
+                    <h5>@context.Question.Keyword</h5>
+
+                </div>
+            }
+            else
+            {
+                <div class="h-[20px]">
+
+                </div>
+            }
+        </Reorder>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter]
+    public ProjectAnalysisDTO ProjectAnalysis { get; set; }
+
+    [Parameter]
+    public IModalReference ModalReference { get; set; }
+
+    [Parameter]
+    public Action CloseModalCallback { get; set; }
+
+    private string text = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        questionsStrongNegative.AddRange(ProjectAnalysis.Answers
+            .Where(a => a.Choice == AnswerChoiceDTO.starkNegativ)
+            .ToList());
+
+        questionsNegative.AddRange(ProjectAnalysis.Answers
+            .Where(a => a.Choice == AnswerChoiceDTO.negativ || a.Choice == AnswerChoiceDTO.tendenziellNegativ)
+            .ToList());
+
+        questionsNeutral.AddRange(ProjectAnalysis.Answers
+            .Where(a => a.Choice == AnswerChoiceDTO.neutral)
+            .ToList());
+
+        questionsPositive.AddRange(ProjectAnalysis.Answers
+            .Where(a => a.Choice == AnswerChoiceDTO.positiv || a.Choice == AnswerChoiceDTO.tendenziellPositiv)
+            .ToList());
+
+        questionsStrongPositive.AddRange(ProjectAnalysis.Answers
+           .Where(a => a.Choice == AnswerChoiceDTO.starkPositiv)
+           .ToList());
+    }
+
+    private void FinishedCallback(AnswerDTO answer, AnswerChoiceDTO choice)
+    {
+        text = $"{answer.Question.Text} {choice}";
+
+        StateHasChanged();
+    }
+
+    public List<AnswerDTO> questionsStrongNegative = new List<AnswerDTO>() { new AnswerDTO() };
+    public List<AnswerDTO> questionsNegative = new List<AnswerDTO>() { new AnswerDTO() };
+    public List<AnswerDTO> questionsNeutral = new List<AnswerDTO>() { new AnswerDTO() };
+    public List<AnswerDTO> questionsPositive = new List<AnswerDTO>() { new AnswerDTO() };
+    public List<AnswerDTO> questionsStrongPositive = new List<AnswerDTO>() { new AnswerDTO() };
+}

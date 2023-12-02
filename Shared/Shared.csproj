@@ -4,4 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BlazorReorderList" Version="1.0.2" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Server.Features.ProjectAnalysisDefinitionFeature;
 using Shared.ProjectAnalysis;
+using Shared.ProjectAnalysisDefinition;
 
 namespace Server.Features.ProjectAnalysisFeature.Domain
 {
@@ -16,6 +17,16 @@ namespace Server.Features.ProjectAnalysisFeature.Domain
                 Begründung = Begründung,
                 Choice = (AnswerChoiceDTO)Choice,
                 Question = Question.ToDTO()
+            };
+        }
+
+        public static Answer FromDTO(AnswerDTO answerDTO, QuestionDTO question)
+        {
+            return new Answer
+            {
+                Begründung = answerDTO.Begründung,
+                Choice = (AnswerChoice)answerDTO.Choice,
+                Question = Question.FromDTO(question)
             };
         }
     }
