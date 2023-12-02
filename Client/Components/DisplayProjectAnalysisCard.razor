@@ -1,0 +1,19 @@
+﻿<div class="w-[200px] h-[225px] bg-green-300 rounded-lg grid grid-rows-[1fr_30px] p-2 pt-3">
+    <div>
+        <h3 class="text-lg text-semibold">@ProjectAnalysis.ProjectName</h3>
+    </div>
+    <div class="flex-row content-center justify-self-end">
+        <button>
+            <img class="h-[25px]" src="/icons/link.png" />
+        </button>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public Action CloseModalCallback { get; set; }
+
+    [Parameter]
+    public ProjectAnalysisDTO ProjectAnalysis { get; set; }
+}

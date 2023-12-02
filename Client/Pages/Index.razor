@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using Blazored.Modal.Services
+@using Blazored.Modal
 @inject NavigationManager navigationManager
 @inject HttpClient httpClient
 
@@ -39,7 +41,13 @@
 
             </div>
             <div class="h-[calc(100%-60px)] overflow-y-auto flex flex-row flex-wrap justify-stretch gap-x-[25px] gap-y-[12.5px] pt-[8px] pb-[20px] pl-[25px]">
-                
+                @if (projectAnalyses != null)
+                {
+                    foreach (var projectAnalysis in projectAnalyses)
+                    {
+                        <DisplayProjectAnalysisCard ProjectAnalysis="projectAnalysis" />
+                    }
+                }
             </div>
         </div>
     </div>
@@ -47,14 +55,36 @@
 
 
 @code{
+
+    [CascadingParameter]
+    public IModalService ModalService { get; set; }
+
+    private IModalReference modalReference;
+
+    private List<ProjectAnalysisDTO> projectAnalyses;
+
     protected override async Task OnInitializedAsync()
     {
-        
+        projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>("api/ProjectAnalysis/all");
+        projectAnalyses.AddRange(projectAnalyses); projectAnalyses.AddRange(projectAnalyses);
+        projectAnalyses.AddRange(projectAnalyses);
 
     }
 
     private async Task StartProjectAnalysis()
     {
-        
+        var modalOptions = new ModalOptions
+            {
+                HideCloseButton = true,
+                Position = ModalPosition.Middle
+            };
+
+        var parameters = new ModalParameters
+        {
+            { nameof(StartProjectAnalysisModal.ModalReference), modalReference },
+            { nameof(StartProjectAnalysisModal.CloseModalCallback), (Action)(() => { modalReference.Close(); }) }
+        };
+
+        modalReference = ModalService.Show<StartProjectAnalysisModal>(string.Empty, parameters, modalOptions);
     }
 }

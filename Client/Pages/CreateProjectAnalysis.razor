@@ -1,0 +1,64 @@
+﻿@page "/CreateProjectAnalysis"
+
+<div class="max-w-[1400px] ml-auto mr-auto w-full h-full">
+    <div class="h-[65px] w-full flex flex-row gap-x-[20px] mb-[5px]">
+        <div class="flex flex-col flex-1">
+            <div class="h-[5px] w-full @(currentStep == CurrentStep.Principles ? "bg-green-600" : "bg-green-300")  mb-[10px]"></div>
+            <h3 class="text-strawberry">Schritt 1:</h3>
+            <h3 class="mt-[-3px]">Übersicht Handlungsgrundsätze</h3>
+        </div>
+        <div class="flex flex-col flex-1">
+            <div class="h-[5px] w-full @(currentStep == CurrentStep.Economy ? "bg-green-600" : "bg-green-300") mb-[10px]"></div>
+            <h3 class="text-strawberry">Schritt 2:</h3>
+            <h3 class="mt-[-3px]">Wirkungsanalyse Wirtschaft</h3>
+        </div>
+        <div class="flex flex-col flex-1">
+            <div class="h-[5px] w-full @(currentStep == CurrentStep.Environment ? "bg-green-600" : "bg-green-300") mb-[10px]"></div>
+            <h3 class="text-strawberry">Schritt 3:</h3>
+            <h3 class="mt-[-3px]">Wirkungsanalyse Umwelt</h3>
+        </div>
+        <div class="flex flex-col flex-1">
+            <div class="h-[5px] w-full @(currentStep == CurrentStep.Society ? "bg-green-600" : "bg-green-300") mb-[10px]"></div>
+            <h3 class="text-strawberry">Schritt 4:</h3>
+            <h3 class="mt-[-3px]">Wirkungsanalyse Gesellschaft</h3>
+        </div>
+        <div class="flex flex-col flex-1">
+            <div class="h-[5px] w-full @(currentStep == CurrentStep.Summary ? "bg-green-600" : "bg-green-300") mb-[10px]"></div>
+            <h3 class="text-strawberry">Schritt 5:</h3>
+            <h3 class="mt-[-3px]">Kurzbericht</h3>
+        </div>
+    </div>
+    <div class="h-[45px] rounded-md bg-green-300 mb-[15px] flex flex-row gap-x-[10px]">
+        <img class="h-[20px] self-start ml-[5px] mt-[5px]" src="/icons/info.png"/>
+        <div>
+            <h3 class="text-lg">Bitte lies die Prinzipien durch</h3>
+        </div>
+    </div>
+    <div class="h-[calc(100%-115px)] overflow-y-auto">
+        <AnalysisPrinciplesComponent />
+    </div>
+</div>
+
+
+
+@code {
+    private CurrentStep currentStep;
+    private ProjectAnalysisDTO projectAnalysis;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentStep = CurrentStep.Principles;
+        projectAnalysis = new ProjectAnalysisDTO();
+
+    }
+
+
+    private enum CurrentStep
+    {
+        Principles,
+        Economy,
+        Environment,
+        Society,
+        Summary
+    } 
+}

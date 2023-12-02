@@ -1,0 +1,43 @@
+﻿@inject HttpClient httpClient
+
+<div class="h-full">
+    @if(analysisPrincipleDTOs != null)
+    {
+        <div class="flex flex-col gap-y-[25px] h-full overflow-y-auto flow-wrap">
+            @foreach (var item in analysisPrincipleDTOs)
+            {
+                <div class="flex flex-row gap-y-[25px]">
+                    <div>
+                        <h3 class="text-xl text-bold">@item.Title</h3>
+                        <h3 class="text-lg text-semibold">@item.ShortDescription</h3>
+                        <ul class="list-disc list-inside">
+                            @foreach (var aspect in item.Aspects)
+                            {
+                                <li class="text-md">@aspect</li>
+                            }
+                        </ul>
+                    </div>
+                    <div>
+                        <input type="checkbox" />
+                    </div>
+                </div>
+            }
+
+            <div class="pt-[25px]">
+
+            </div>
+
+        </div>
+    }
+
+</div>
+
+
+@code {
+    private List<AnalysisPrinciplesDTO> analysisPrincipleDTOs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        analysisPrincipleDTOs = await httpClient.GetFromJsonAsync<List<AnalysisPrinciplesDTO>>("api/ProjectAnalysisDefinitions/analysisPrinciples");
+    }
+}

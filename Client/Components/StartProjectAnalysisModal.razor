@@ -1,0 +1,25 @@
+﻿@using Blazored.Modal;
+@inject NavigationManager navigationManager
+
+<div class="flex flex-col items-center gap-y-[10px]">
+    <h3 class="text-5xl">👋🏻</h3>
+    <h3 class="text-2xl font-semibold">Willkommen!</h3>
+    <h5 class="text-center">Es freut mich sehr, dass du deine Projektanalyse online erfassen möchtest! Rechne mit ca. 10 Minuten Zeitaufwand.</h5>
+    <div class="flex flex-row w-4/5 justify-between mt-[15px] items-stretch gap-x-[20px]">
+        <button @onclick="() => CloseModalCallback()" class="flex-1 text-md p-2 rounded-md bg-gray-200 hover:bg-gray-300">
+            Abbruch
+        </button>
+        <button @onclick='() => navigationManager.NavigateTo("/CreateProjectAnalysis")' class="flex-1 text-md p-2 text-white rounded-md bg-green-500 hover:bg-green-600">
+            Starten
+        </button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public IModalReference ModalReference { get; set; }
+
+    [Parameter]
+    public Action CloseModalCallback { get; set; }
+}
+

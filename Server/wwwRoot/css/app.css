@@ -1,1 +1,46 @@
-﻿
+﻿.bm-container {
+    padding: 0 !important;
+    background-color: rgba(134, 239, 172, 0.3) !important;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.blazored-modal {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+}
+
+.bm-header {
+    display: none !important;
+}
+
+.bm-content {
+    padding: 5px !important;
+}
+
+
+::-webkit-scrollbar {
+    padding-top: 5px;
+    width: 7px !important;
+    height: 7px !important;
+    scrollbar-width: thin; /* Adjust the width as needed */
+    scrollbar-color: #666 #ccc; /* Customize thumb and track colors */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    margin-left: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(34, 197, 94, 1) !important;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(34, 197, 94, 1) !important;
+    }
+
+::-webkit-scrollbar {
+    width: 8px !important;
+}
