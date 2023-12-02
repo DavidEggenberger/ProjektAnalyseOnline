@@ -1,3 +1,60 @@
 ﻿@page "/"
+@inject NavigationManager navigationManager
+@inject HttpClient httpClient
 
-<h1>Hello</h1>
+<div class="max-w-[1400px] ml-auto mr-auto w-full h-full">
+    <div class="grid h-[45%] max-h-[750px] justify-center justify-items-center content-center">
+        <div class="w-[70%] flex flex-col">
+            <h1 class="text-5xl leading-[3.25rem]">Analysiere dein Projekt und sehe die Auswirkungen auf Wirtschaft📈, Umwelt🌳 und Gesellschaft👩‍👨‍👦‍👧</h1>
+            <h3 class="text-2xl mt-2">Oder suche nach existierenden Projektanalysen</h3>
+            <div class="flex flex-row mt-3">
+                <button 
+                    @onclick='async () => await StartProjectAnalysis()' 
+                    class="p-[6px] px-[10px] text-2xl rounded-md cursor-pointer bg-green-500 hover:bg-green-600 text-white">
+                    Projektanalyse erstellen
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="h-[55%]">
+        <div class="bg-green-200 h-[calc(100%)] rounded-lg">
+            <div class="h-[60px] flex flex-row gap-x-[15px] pl-[25px] pt-[5px]">
+                <div class="flex flex-col">
+                    <label class="font-medium text-sm">Name, Stichwort etc</label>
+                    <input autocomplete="off"
+                           autocorrect="off"
+                           spellcheck="false"
+                           class="rounded-md capitalize text-sm h-[30px]"
+                           type="text" />
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm">Auswirkungen</label>
+                    <select class="h-[30px] rounded-md">
+                        <option></option>
+                    </select>
+                </div>
+                <button class="h-[30px] mt-auto p-1 bg-green-300 cursor-pointer rounded-md mb-[5px]">
+                    <span class="text-sm">Filter zurücksetzen</span>
+                </button>
+
+            </div>
+            <div class="h-[calc(100%-60px)] overflow-y-auto flex flex-row flex-wrap justify-stretch gap-x-[25px] gap-y-[12.5px] pt-[8px] pb-[20px] pl-[25px]">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        
+
+    }
+
+    private async Task StartProjectAnalysis()
+    {
+        
+    }
+}
