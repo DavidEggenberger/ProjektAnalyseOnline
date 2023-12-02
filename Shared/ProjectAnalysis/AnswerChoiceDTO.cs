@@ -14,6 +14,7 @@ namespace Shared.ProjectAnalysis
         neutral,
         tendenziellPositiv,
         positiv,
-        starkPositiv
+        starkPositiv,
+        None
     }
 }

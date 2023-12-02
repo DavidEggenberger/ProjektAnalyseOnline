@@ -22,24 +22,24 @@
         <div class="bg-green-200 h-[calc(100%)] rounded-lg">
             <div class="h-[60px] flex flex-row gap-x-[15px] pl-[25px] pt-[5px]">
                 <div class="flex flex-col">
-                    <label class="font-medium text-sm">Name, Stichwort etc</label>
+                    <label class="font-medium text-sm">Name, Stichwort etc:</label>
                     <input autocomplete="off" @bind="SearchTerm" @bind:event="oninput"
                            autocorrect="off"
                            spellcheck="false"
-                           class="rounded-md capitalize text-sm h-[30px]"
+                           class="rounded-md capitalize text-sm h-[30px] p-1"
                            type="text" />
                 </div>
                 <div class="flex flex-col">
-                    <label class="font-medium text-sm">Gesamt Auswirkung</label>
+                    <label class="font-medium text-sm">Gesamt Auswirkung:</label>
                     <select @bind="AnswerChoiceDTO" @bind:event="oninput" class="h-[30px] rounded-md">
-                        <option></option>
-                        <option>Stark Positiv</option>
-                        <option>Positiv</option>
-                        <option>Tendenziell Positiv</option>
-                        <option>Neutral</option>
-                        <option>Tendenziell Negativ</option>
-                        <option>Negativ</option>
-                        <option>Stark Negativ</option>
+                        <option value="@AnswerChoiceDTO.None"></option>
+                        <option value="@AnswerChoiceDTO.starkPositiv">Stark Positiv</option>
+                        <option value="@AnswerChoiceDTO.positiv">Positiv</option>
+                        <option value="@AnswerChoiceDTO.tendenziellPositiv">Tendenziell Positiv</option>
+                        <option value="@AnswerChoiceDTO.neutral">Neutral</option>
+                        <option value="@AnswerChoiceDTO.tendenziellNegativ">Tendenziell Negativ</option>
+                        <option value="@AnswerChoiceDTO.negativ">Negativ</option>
+                        <option value="@AnswerChoiceDTO.starkNegativ">Stark Negativ</option>
                     </select>
                 </div>
                 <button @onclick="() => { SearchTerm = string.Empty; StateHasChanged();  }" class="h-[30px] mt-auto p-1 bg-green-300 cursor-pointer rounded-md mb-[5px]">
@@ -104,6 +104,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        answerChoiceDTO = AnswerChoiceDTO.None;
         backupAnalyses = projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>("api/ProjectAnalysis/all");
     }
 
@@ -117,7 +118,7 @@
     {
         if (ChoiceSet)
         {
-            projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>($"api/ProjectAnalysisSearch?keyword={SearchTerm}%rating={AnswerChoiceDTO}");
+            projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>($"api/ProjectAnalysisSearch?keyword={SearchTerm}%choice={AnswerChoiceDTO}");
         }
         else
         {

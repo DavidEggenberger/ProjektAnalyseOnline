@@ -1,4 +1,5 @@
-﻿using Server.Features.ProjectAnalysisFeature.Domain;
+﻿using Server.Features.ProjectAnalysisDefinitionFeature;
+using Server.Features.ProjectAnalysisFeature.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,22 @@ namespace Server.Features.ProjectAnalysisFeature.Infrastructure
                     Id = Guid.NewGuid(),
                     ProjectName = "Spielplatz St.Fiden",
                     CreationDate = DateTime.Now.AddHours(-rnd.Next(4)),
-                    
+                    Answers = ProjectAnalysisDefinition.GetAllQuestions().Select(q => new Answer
+                    {
+                        Choice = (AnswerChoice)rnd.Next(0, 7),
+                        Question = q
+                    }).ToList(),
                 },
                 new ProjectAnalysis
                 {
                     Id = Guid.NewGuid(),
                     ProjectName = "Sanierung Brunnenbergstrasse",
                     CreationDate = DateTime.Now.AddHours(-rnd.Next(4)),
-
+                    Answers = ProjectAnalysisDefinition.GetAllQuestions().Select(q => new Answer
+                    {
+                        Choice = (AnswerChoice)rnd.Next(0, 7),
+                        Question = q
+                    }).ToList(),
                 }
             };
         }

@@ -39,6 +39,12 @@ namespace Server.Features.ProjectAnalysisFeature
             }); 
         }
 
+        [HttpGet("excel")]
+        public ActionResult<List<ProjectAnalysisDTO>> GetExcelForProjectAnalysis()
+        {
+            return Ok();
+        }
+
         [HttpGet("{id}")]
         public ActionResult<ProjectAnalysisDTO> Get(Guid id)
         {
