@@ -94,9 +94,11 @@ namespace Server.Features.ProjectAnalysisFeature
 
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(Guid id)
         {
+            _projectAnalysisRepo.Remove(id);
 
+            return Ok();
         }
     }
 }

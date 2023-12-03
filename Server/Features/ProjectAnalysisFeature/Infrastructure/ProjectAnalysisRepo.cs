@@ -82,6 +82,13 @@ namespace Server.Features.ProjectAnalysisFeature.Infrastructure
             }
         }
 
+        public void Remove(Guid id)
+        {
+            var proj = projectAnalyses.First(p => p.Id == id);
+
+            projectAnalyses.Remove(proj);
+        }
+
         public Guid AddProjectAnalysis(ProjectAnalysis projectAnalysis)
         {
             projectAnalysis.Id = Guid.NewGuid();
