@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.Features.ProjectAnalysisFeature.Domain;
 using Server.Features.ProjectAnalysisFeature.Infrastructure;
+using Shared.ProjectAnalysis;
 using System.Linq;
 
 namespace Server.Features.ProjectAnalysisFeature
@@ -19,10 +20,11 @@ namespace Server.Features.ProjectAnalysisFeature
         [HttpGet]
         public ActionResult SearchProjectAnalysis(
             [FromQuery] string keyword,
-            [FromQuery] AnswerChoice choice
+            [FromQuery] int? choice
             )
         {
-            return Ok(_projectAnalysisRepo.SearchProjectAnalyses(keyword).Select(p => p.ToDTO()).ToList());
+
+            return Ok(_projectAnalysisRepo.SearchProjectAnalyses(keyword, (AnswerChoice)choice).Select(p => p.ToDTO()).ToList());
         }
     }
 }

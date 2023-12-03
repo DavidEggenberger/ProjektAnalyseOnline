@@ -2,12 +2,12 @@
 {
     public enum AnswerChoice
     {
-        starkNegativ,
-        negativ,
-        tendenziellNegativ,
-        neutral,
-        tendenziellPositiv,
-        positiv,
-        starkPositiv
+        starkNegativ = 0,
+        negativ = 1,
+        tendenziellNegativ = 2,
+        neutral = 3,
+        tendenziellPositiv = 4,
+        positiv = 5,
+        starkPositiv = 6
     }
 }

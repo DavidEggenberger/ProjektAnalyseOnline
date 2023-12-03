@@ -34,6 +34,7 @@ namespace Server.Features.ProjectAnalysisFeature
                 Answers = ProjectAnalysisDefinition.GetAllQuestions().Select(q => new AnswerDTO
                 {
                     Question = q.ToDTO(),
+                    Changes = new List<AnswerChangeDTO>(),
                     Choice = AnswerChoiceDTO.neutral
                 }).ToList()
             }); 
@@ -51,6 +52,16 @@ namespace Server.Features.ProjectAnalysisFeature
             return Ok(_projectAnalysisRepo.GetProjectAnalysis(id).ToDTO());
         }
 
+        [HttpGet("question/{id}")]
+        public ActionResult<List<AnswerChangeDTO>> GetAnswerHistory(Guid id)
+        {
+            var answer = _projectAnalysisRepo.GetProjectAnalyses().SelectMany(s => s.Answers).Where(a => a.Question.Id == id).FirstOrDefault();
+
+            
+
+            return Ok(answer.Changes.Select(c => c.ToDTO()));
+        }
+
         [HttpPost]
         public ActionResult<Guid> CreateProjectAnalysis([FromBody] ProjectAnalysisDTO projectAnalysisDTO)
         {
@@ -65,10 +76,22 @@ namespace Server.Features.ProjectAnalysisFeature
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult CreateProjectAnalysis([FromRoute] Guid id, [FromBody] AnswerChangeDTO changeDTO)
         {
+            var answer = _projectAnalysisRepo.GetProjectAnalysis(id).Answers.Where(a => a.Question.Id == changeDTO.QuestionId).FirstOrDefault();
 
+            if (answer.Changes == null)
+            {
+                answer.Changes = new List<AnswerChange>();
+            }
+
+            answer.Changes.Add(AnswerChange.FromDTO(changeDTO));
+
+            answer.Choice = (AnswerChoice) changeDTO.End;
+
+            return Ok();
         }
+
 
         [HttpDelete("{id}")]
         public void Delete(int id)

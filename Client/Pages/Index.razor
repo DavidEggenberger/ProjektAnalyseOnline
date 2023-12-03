@@ -43,7 +43,7 @@
                     </select>
                 </div>
                 <button @onclick="() => { SearchTerm = string.Empty; StateHasChanged();  }" class="h-[30px] mt-auto p-1 bg-green-300 cursor-pointer rounded-md mb-[5px]">
-                    <span class="text-sm">Filter zurücksetzen</span>
+                    <span class="text-lg">Filter zurücksetzen</span>
                 </button>
 
             </div>
@@ -104,6 +104,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        SearchTerm = string.Empty;
         answerChoiceDTO = AnswerChoiceDTO.None;
         backupAnalyses = projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>("api/ProjectAnalysis/all");
     }
@@ -116,9 +117,13 @@
 
     private async Task SearchAnalyses()
     {
-        if (ChoiceSet)
+        if (ChoiceSet && SearchTerm == string.Empty)
         {
-            projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>($"api/ProjectAnalysisSearch?keyword={SearchTerm}%choice={AnswerChoiceDTO}");
+            projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>($"api/ProjectAnalysisSearch?choice={(int)AnswerChoiceDTO}");
+        }
+        else if(ChoiceSet && SearchTerm != String.Empty)
+        {
+            projectAnalyses = await httpClient.GetFromJsonAsync<List<ProjectAnalysisDTO>>($"api/ProjectAnalysisSearch?keyword={SearchTerm}%choice={(int)AnswerChoiceDTO}");
         }
         else
         {

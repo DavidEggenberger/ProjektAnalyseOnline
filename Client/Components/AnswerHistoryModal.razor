@@ -1,0 +1,44 @@
+﻿@inject HttpClient httpCLient
+
+<div class="flex flex-col"
+    <h3 class="text-2xl font-bold mt-[20px] mb-[15px]">Übersicht über Bewertungsänderungen</h3>
+
+    @if(Changes?.Any() == true)
+    {
+        foreach (var item in Changes)
+        {
+            <div>
+                <h3 class="text-md">@item.Date.ToShortDateString()</h3>
+                    <h3 class="text-lg">Bewertungsänderung von: <label class="font-bold">@item.Start</label> zu <label class="font-bold">@item.End</label></h3>
+                    <h3 class="text-lg">Begründung: <label class="font-bold">@item.Reason</label></h3>
+                    <div class="h-[3px] w-full bg-green-300 mb-[10px] mt-[5px] mr-[5px]"></div>
+            </div>
+        }
+    }
+    else
+    {
+        <h3 class="text-lg">Seit Abschluss der Projektanalyse wurden keine Änderungen gemacht</h3>
+    }
+
+    <div class="w-fit flex flex-row justify-end mt-[10px] bg-green-200 hover:bg-green-300 p-1 px-2 rounded-md">
+        <button class="rounded-md" @onclick="() => CloseModalCallback.Invoke()">
+            Schliessen
+        </button>
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public Guid QuestionId { get; set; }
+
+    [Parameter]
+    public Action CloseModalCallback { get; set; }
+
+    private List<AnswerChangeDTO> Changes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Changes = await httpCLient.GetFromJsonAsync<List<AnswerChangeDTO>>($"/api/ProjectAnalysis/question/{QuestionId}");
+    }
+}

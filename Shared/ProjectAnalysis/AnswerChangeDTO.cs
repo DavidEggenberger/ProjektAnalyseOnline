@@ -12,5 +12,7 @@ namespace Shared.ProjectAnalysis
         public string Reason { get; set; }
         public AnswerChoiceDTO Start { get; set; }
         public AnswerChoiceDTO End { get; set; }
+        public Guid QuestionId { get; set; }
+        public Guid AnalysisId { get; set; }
     }
 }

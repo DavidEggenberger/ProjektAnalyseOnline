@@ -1,10 +1,17 @@
 ﻿@using Blazored.Modal.Services
 @using Blazored.Modal
+@inject HttpClient httpClient
 
-<div class="h-[50px]">
-
+<div class="h-[60px] rounded-lg bg-green-200 mb-[25px] flex flex-row">
+    <div>
+        <img class="h-[25px] mt-3 ml-3" src="/icons/info.png"/>
+    </div>
+    <div class="ml-[10px]">
+        <h3 class="font-semibold text-xl mt-1">Kanban Board</h3>
+        <h4 class="text-md">Manage dein Projekt indem du Themenpunkte bei Möglichkeit in eine andere (bessere) Kategorie ziehst</h4>
+    </div>
 </div>
-<div class="h-[650px] flex flex-row gap-x-[25px] text-start">
+<div class="h-[550px] flex flex-row gap-x-[25px] text-start">
     <div class="bg-green-200 w-[175px] p-1">
         <h2 class="font-bold h-[48px] mb-2 mx-2">Stark negative Auswirkungen</h2>
         <Reorder Items="questionsStrongNegative" OnStart="(args) => choiceDTO = AnswerChoiceDTO.starkNegativ" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.starkNegativ)" TItem="AnswerDTO">
@@ -18,7 +25,12 @@
                         <div>
                             <span class="text-xs">@context.Question.Date.ToShortDateString()</span>
                         </div>
-                        <button @onclick="() => ModalService.Show<MoveReasonModal>()">asdf</button>
+                        <div class="flex flex-row">
+                            <button @onclick="() => ShowAnswerHistory(context.Question)">
+                                <img class="h-[16px]" src="/icons/history.png" />
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             }
@@ -32,7 +44,7 @@
     </div>
     <div class="bg-green-200 w-[175px] p-1">
         <h2 class="font-bold h-[48px] mb-2 mx-2">Stark negative Auswirkungen</h2>
-        <Reorder Items="questionsStrongNegative" OnStart="(args) => choiceDTO = AnswerChoiceDTO.negativ" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.negativ)" TItem="AnswerDTO">
+        <Reorder Items="questionsNegative" OnStart="(args) => choiceDTO = AnswerChoiceDTO.negativ" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.negativ)" TItem="AnswerDTO">
             @if (context.Question != null)
             {
                 <div class="mb-2 px-2 w-full h-full flex flex-col bg-green-300">
@@ -43,7 +55,11 @@
                         <div>
                             <span class="text-xs">@context.Question.Date.ToShortDateString()</span>
                         </div>
-                        <button @onclick="() => ModalService.Show<MoveReasonModal>()">asdf</button>
+                        <div class="flex flex-row">
+                            <button @onclick="() => ShowAnswerHistory(context.Question)">
+                                <img class="h-[16px]" src="/icons/history.png" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             }
@@ -54,14 +70,25 @@
             }
         </Reorder>
     </div>
-    <div class="bg-green-300 p-1 w-[175px]">
-        <h2>Neutrale Auswirkungen</h2>
-        <Reorder Items="questionsNeutral" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.neutral)">
+    <div class="bg-green-200 p-1 w-[175px]">
+        <h2 class="font-bold h-[48px] mb-2 mx-2">Neutrale Auswirkungen</h2>
+        <Reorder Items="questionsNeutral" OnStart="(args) => choiceDTO = AnswerChoiceDTO.neutral" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.neutral)">
             @if (context.Question != null)
             {
-                <div class="mb-2 mx-2">
-                    <h5>@context.Question.Keyword</h5>
-
+                <div class="mb-2 px-2 w-full h-full flex flex-col bg-green-300">
+                    <div class="mb-[5px]">
+                        <h5 class="font-semibold">@context.Question.Keyword</h5>
+                    </div>
+                    <div class="flex flex-row justify-between">
+                        <div>
+                            <span class="text-xs">@context.Question.Date.ToShortDateString()</span>
+                        </div>
+                        <div class="flex flex-row">
+                            <button @onclick="() => ShowAnswerHistory(context.Question)">
+                                <img class="h-[16px]" src="/icons/history.png" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             }
             else
@@ -72,14 +99,25 @@
             }
         </Reorder>
     </div>
-    <div class="bg-green-300 p-1 w-[175px]">
-        <h2>Positive Auswirkungen</h2>
-        <Reorder Items="questionsPositive" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.positiv)">
+    <div class="bg-green-200 p-1 w-[175px]">
+        <h2 class="font-bold h-[48px] mb-2 mx-2">Positive Auswirkungen</h2>
+        <Reorder Items="questionsPositive" OnStart="(args) => choiceDTO = AnswerChoiceDTO.positiv" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.positiv)">
             @if (context.Question != null)
             {
-                <div class="mb-2 mx-2">
-                    <h5>@context.Question.Keyword</h5>
-
+                <div class="mb-2 px-2 w-full h-full flex flex-col bg-green-300">
+                    <div class="mb-[5px]">
+                        <h5 class="font-semibold">@context.Question.Keyword</h5>
+                    </div>
+                    <div class="flex flex-row justify-between">
+                        <div>
+                            <span class="text-xs">@context.Question.Date.ToShortDateString()</span>
+                        </div>
+                        <div class="flex flex-row">
+                            <button @onclick="() => ShowAnswerHistory(context.Question)">
+                                <img class="h-[16px]" src="/icons/history.png" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             }
             else
@@ -90,14 +128,25 @@
             }
         </Reorder>
     </div>
-    <div class="bg-green-300 p-1 w-[175px]">
-        <h2>Sehr positive Auswirkungen</h2>
-        <Reorder Items="questionsStrongPositive" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.starkPositiv)">
+    <div class="bg-green-200 p-1 w-[175px]">
+        <h2 class="font-bold h-[48px] mb-2 mx-2">Sehr positive Auswirkungen</h2>
+        <Reorder Items="questionsStrongPositive" OnStart="(args) => choiceDTO = AnswerChoiceDTO.starkPositiv" TItem="AnswerDTO" OnFinish="args => FinishedCallback(args, AnswerChoiceDTO.starkPositiv)">
             @if (context.Question != null)
             {
-                <div class="mb-2 mx-2">
-                    <h5>@context.Question.Keyword</h5>
-
+                <div class="mb-2 px-2 w-full h-full flex flex-col bg-green-300">
+                    <div class="mb-[5px]">
+                        <h5 class="font-semibold">@context.Question.Keyword</h5>
+                    </div>
+                    <div class="flex flex-row justify-between">
+                        <div>
+                            <span class="text-xs">@context.Question.Date.ToShortDateString()</span>
+                        </div>
+                        <div class="flex flex-row">
+                            <button @onclick="() => ShowAnswerHistory(context.Question)">
+                                <img class="h-[16px]" src="/icons/history.png" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             }
             else
@@ -109,10 +158,33 @@
         </Reorder>
     </div>
 </div>
+<div class="flex flex-row mt-[20px] justify-end">
+    <button class="p-2 rounded-md bg-green-200 text-lg hover:bg-green-300" @onclick="() => CloseModalCallback()">Schliessen</button>
+</div>
 
 
 
 @code {
+    private IModalReference historyReference;
+    private void ShowAnswerHistory(QuestionDTO d)
+    {
+        var modalOptions = new ModalOptions
+            {
+                HideCloseButton = true,
+                Size = ModalSize.Automatic,
+                Position = ModalPosition.Middle
+            };
+
+        var parameters = new ModalParameters
+        {
+            { nameof(AnswerHistoryModal.QuestionId), d.Id  },
+            { nameof(AnswerHistoryModal.CloseModalCallback), (Action)(() => { historyReference.Close(); }) }
+        };
+
+        historyReference = ModalService.Show<AnswerHistoryModal>(string.Empty, parameters, modalOptions);
+    }
+
+
     private AnswerChoiceDTO choiceDTO;
 
     [Parameter]
@@ -130,44 +202,106 @@
 
     protected override async Task OnInitializedAsync()
     {
+        ProjectAnalysis = await httpClient.GetFromJsonAsync<ProjectAnalysisDTO>($"api/ProjectAnalysis/{ProjectAnalysis.Id}");
+
         questionsStrongNegative.AddRange(ProjectAnalysis.Answers
-            .Where(a => a.Choice == AnswerChoiceDTO.starkNegativ)
+            .Where(a => a.Choice == AnswerChoiceDTO.starkNegativ).Take(6)
             .ToList());
 
         questionsNegative.AddRange(ProjectAnalysis.Answers
-            .Where(a => a.Choice == AnswerChoiceDTO.negativ || a.Choice == AnswerChoiceDTO.tendenziellNegativ)
+            .Where(a => a.Choice == AnswerChoiceDTO.negativ || a.Choice == AnswerChoiceDTO.tendenziellNegativ).Take(6)
             .ToList());
 
         questionsNeutral.AddRange(ProjectAnalysis.Answers
-            .Where(a => a.Choice == AnswerChoiceDTO.neutral)
+            .Where(a => a.Choice == AnswerChoiceDTO.neutral).Take(6)
             .ToList());
 
         questionsPositive.AddRange(ProjectAnalysis.Answers
-            .Where(a => a.Choice == AnswerChoiceDTO.positiv || a.Choice == AnswerChoiceDTO.tendenziellPositiv)
+            .Where(a => a.Choice == AnswerChoiceDTO.positiv || a.Choice == AnswerChoiceDTO.tendenziellPositiv).Take(6)
             .ToList());
 
-        questionsStrongPositive.AddRange(ProjectAnalysis.Answers
+        questionsStrongPositive.AddRange(ProjectAnalysis.Answers.Take(6)
            .Where(a => a.Choice == AnswerChoiceDTO.starkPositiv)
            .ToList());
     }
 
     private void FinishedCallback(AnswerDTO answer, AnswerChoiceDTO choice)
     {
+        if(choice == choiceDTO)
+        {
+            return;
+        }
+
         var modalOptions = new ModalOptions
             {
                 HideCloseButton = true,
+                Size = ModalSize.Automatic,
                 Position = ModalPosition.Middle
             };
 
+        var answerChange = new AnswerChangeDTO
+            {
+                Date = DateTime.Now,
+                Start = choiceDTO,
+                End = choice,
+                QuestionId = answer.Question.Id,
+                AnalysisId = ProjectAnalysis.Id
+            };
+
+        if (answer.Changes == null)
+        {
+            answer.Changes = new List<AnswerChangeDTO>();
+        }
+        answer.Changes.Add(answerChange);
+
         var parameters = new ModalParameters
         {
-            { nameof(MoveReasonModal.Text), $"Du verschiebst {answer.Question.Keyword} von {choiceDTO} zu {choice}"  },
+            { nameof(MoveReasonModal.Text), $"{answer.Question.Keyword}"  },
+            { nameof(MoveReasonModal.Change), answerChange  },
+            { nameof(MoveReasonModal.SavedCallback), new EventCallback<AnswerChangeDTO>(this, (Func<AnswerChangeDTO, Task>)Update)  },
             { nameof(MoveReasonModal.CloseModalCallback), (Action)(() => { ModalReference.Close(); }) }
         };
 
         ModalReference = ModalService.Show<MoveReasonModal>(string.Empty, parameters, modalOptions);
 
         StateHasChanged();
+    }
+
+    private async Task Update(AnswerChangeDTO change)
+    {
+        await httpClient.PutAsJsonAsync($"/api/projectAnalysis/{ProjectAnalysis.Id}", change);
+
+        await Task.Delay(100);
+
+        ProjectAnalysis = await httpClient.GetFromJsonAsync<ProjectAnalysisDTO>($"api/ProjectAnalysis/{ProjectAnalysis.Id}");
+
+        StateHasChanged();
+
+     questionsStrongNegative = new List<AnswerDTO>() { new AnswerDTO() };
+     questionsNegative = new List<AnswerDTO>() { new AnswerDTO() };
+     questionsNeutral = new List<AnswerDTO>() { new AnswerDTO() };
+     questionsPositive = new List<AnswerDTO>() { new AnswerDTO() };
+     questionsStrongPositive = new List<AnswerDTO>() { new AnswerDTO() };
+
+        questionsStrongNegative.AddRange(ProjectAnalysis.Answers
+            .Where(a => a.Choice == AnswerChoiceDTO.starkNegativ).Take(6)
+            .ToList());
+
+        questionsNegative.AddRange(ProjectAnalysis.Answers
+            .Where(a => a.Choice == AnswerChoiceDTO.negativ || a.Choice == AnswerChoiceDTO.tendenziellNegativ).Take(6)
+            .ToList());
+
+        questionsNeutral.AddRange(ProjectAnalysis.Answers
+            .Where(a => a.Choice == AnswerChoiceDTO.neutral).Take(6)
+            .ToList());
+
+        questionsPositive.AddRange(ProjectAnalysis.Answers
+            .Where(a => a.Choice == AnswerChoiceDTO.positiv || a.Choice == AnswerChoiceDTO.tendenziellPositiv).Take(6)
+            .ToList());
+
+        questionsStrongPositive.AddRange(ProjectAnalysis.Answers.Take(6)
+           .Where(a => a.Choice == AnswerChoiceDTO.starkPositiv)
+           .ToList());
     }
 
     public List<AnswerDTO> questionsStrongNegative = new List<AnswerDTO>() { new AnswerDTO() };

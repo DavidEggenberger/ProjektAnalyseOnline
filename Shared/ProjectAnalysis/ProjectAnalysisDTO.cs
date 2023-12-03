@@ -9,6 +9,7 @@ namespace Shared.ProjectAnalysis
 {
     public class ProjectAnalysisDTO
     {
+        public Guid Id { get; set; }
         public string ProjectName { get; set; }
         public DateTime CreationDate { get; set; }
         public List<AnswerDTO> Answers { get; set; }

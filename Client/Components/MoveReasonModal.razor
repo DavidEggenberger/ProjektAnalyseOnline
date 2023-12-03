@@ -1,11 +1,17 @@
-﻿<div class="flex flex-row">
+﻿<div class="flex flex-row gap-x-[15px]">
     <div>
-        <img class="h-[25px]" src="/icons/info.png"/>
+        <img class="h-[25px]" src="/icons/info.png" />
     </div>
     <div>
-        <h3 class="text-xl font-bold">@Text</h3>
+        <h3 class="text-xl font-bold">Zustandsänderung</h3>
+        <h3 class="text-lg text-center">Du veränderst die Auswirkungen auf <label class="font-semibold">@Text</label> von <label class="font-semibold">@Change.Start</label> zu <label class="font-semibold">@Change.End</label>. Bitte gib deine Begründung an.</h3>
+        <div class="flex flex-row mt-[15px]">
+            <input @bind="text" @bind:event="oninput" type="text" class="p-1 outline outline-1 rounded-md mr-2" />
+            <button @onclick="Save" class="bg-green-300 p-1 px-2 rounded-md">Speichern</button>
+        </div>
     </div>
 </div>
+
 
 @code {
     [Parameter]
@@ -13,4 +19,21 @@
 
     [Parameter]
     public Action CloseModalCallback { get; set; }
+
+    [Parameter]
+    public EventCallback<AnswerChangeDTO> SavedCallback { get; set; }
+
+    [Parameter]
+    public AnswerChangeDTO Change { get; set; }
+
+    private string text;
+
+    private void Save()
+    {
+        Change.Reason = text;
+
+        SavedCallback.InvokeAsync(Change);
+
+        CloseModalCallback();
+    }
 }

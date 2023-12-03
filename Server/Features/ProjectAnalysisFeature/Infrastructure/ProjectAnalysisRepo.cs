@@ -25,6 +25,7 @@ namespace Server.Features.ProjectAnalysisFeature.Infrastructure
                     {
                         Choice = (AnswerChoice)rnd.Next(0, 7),
                         Question = q,
+                        Changes = new List<AnswerChange>()
                     }).ToList(),
                 },
                 new ProjectAnalysis
@@ -35,7 +36,8 @@ namespace Server.Features.ProjectAnalysisFeature.Infrastructure
                     Answers = ProjectAnalysisDefinition.GetAllQuestions().Select(q => new Answer
                     {
                         Choice = (AnswerChoice)rnd.Next(0, 7),
-                        Question = q
+                        Question = q,
+                        Changes = new List<AnswerChange>()
                     }).ToList(),
                 }
             };
@@ -46,14 +48,38 @@ namespace Server.Features.ProjectAnalysisFeature.Infrastructure
             return projectAnalyses;
         }
 
-        public List<ProjectAnalysis> SearchProjectAnalyses(string searchWord)
+        public List<ProjectAnalysis> SearchProjectAnalyses(string searchWord, AnswerChoice? choice)
         {
+            if(searchWord == null && choice != null)
+            {
+                return projectAnalyses.Where(s => s.Overall == choice).ToList();
+            }
+            if (searchWord != null && choice != null)
+            {
+                return projectAnalyses.Where(s => s.ProjectName.ToLower().Contains(searchWord.ToLower()) && s.Overall == choice).ToList();
+            }
+
             return projectAnalyses.Where(s => s.ProjectName.ToLower().Contains(searchWord.ToLower())).ToList();
         }
 
         public ProjectAnalysis GetProjectAnalysis(Guid id)
         {
-            return projectAnalyses.First(p => p.Id == id);
+            var p = projectAnalyses.First(p => p.Id == id);
+
+            return p;
+        }
+
+        public void Update(Guid id, ProjectAnalysis projectAnalysis)
+        {
+            var proj = projectAnalyses.First(p => p.Id == id);
+
+            foreach (var item in projectAnalysis.Answers.Where(a => a.Changes != null && a.Changes.Any()))
+            {
+                var v = proj.Answers.First(a => a.Question.Text == item.Question.Text);
+
+                v.Choice = item.Changes.Last().End;
+                v.Changes = item.Changes;
+            }
         }
 
         public Guid AddProjectAnalysis(ProjectAnalysis projectAnalysis)

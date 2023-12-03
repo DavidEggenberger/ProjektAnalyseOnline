@@ -8,13 +8,13 @@ namespace Shared.ProjectAnalysis
 {
     public enum AnswerChoiceDTO
     {
-        starkNegativ,
-        negativ,
-        tendenziellNegativ,
-        neutral,
-        tendenziellPositiv,
-        positiv,
-        starkPositiv,
-        None
+        starkNegativ = 0,
+        negativ = 1,
+        tendenziellNegativ = 2,
+        neutral = 3,
+        tendenziellPositiv = 4,
+        positiv = 5,
+        starkPositiv = 6,
+        None = 7
     }
 }

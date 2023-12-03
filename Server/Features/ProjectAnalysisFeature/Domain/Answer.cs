@@ -2,6 +2,7 @@
 using Shared.ProjectAnalysis;
 using Shared.ProjectAnalysisDefinition;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Server.Features.ProjectAnalysisFeature.Domain
 {
@@ -28,7 +29,8 @@ namespace Server.Features.ProjectAnalysisFeature.Domain
             {
                 Begründung = answerDTO.Begründung,
                 Choice = (AnswerChoice)answerDTO.Choice,
-                Question = Question.FromDTO(question)
+                Question = Question.FromDTO(question),
+                Changes = answerDTO.Changes?.Select(c => AnswerChange.FromDTO(c)).ToList()
             };
         }
     }

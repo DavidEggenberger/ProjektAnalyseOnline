@@ -31,7 +31,8 @@ namespace Server.Features.ProjectAnalysisDefinitionFeature
                 Domain = ( QuestionDomain)dto.Domain,
                 Keyword = dto.Keyword,
                 Text = dto.Text,
-                Date = dto.Date
+                Date = dto.Date,
+                Id = dto.Id
             };
         }
     }
