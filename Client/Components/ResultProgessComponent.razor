@@ -1,0 +1,18 @@
+﻿<div class="w-[420px] rounded-lg h-[45px] flex flex-row mt-[10px]">
+    @for (int i = 0; i < (int)AnswerChoice; i++)
+    {
+        <div class="w-[60px] h-[40px] border border-r-1 border-green-500 bg-green-300">
+
+        </div>
+    }
+    @for (int i = (int)AnswerChoice; i < 7; i++)
+    {
+        <div class="w-[60px] h-[40px] border border-r-1 border-green-500 bg-green-100">
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public AnswerChoiceDTO AnswerChoice { get; set; }
+}

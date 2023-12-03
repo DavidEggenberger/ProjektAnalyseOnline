@@ -4,6 +4,23 @@
     @if (ProjectAnalysis != null)
     {
         <div class="flex flex-col gap-y-[25px] h-full overflow-y-auto flow-wrap">
+            <div>
+                @if(Domain == QuestionDomainDTO.Wirtschaft)
+                {
+                    <h4 class="text-3xl text-bold">Auswirkungen auf Wirtschaft:</h4>
+                    <ResultProgessComponent AnswerChoice="ProjectAnalysis.Economic" />
+                }
+                @if (Domain == QuestionDomainDTO.Umwelt)
+                {
+                    <h4 class="text-3xl text-bold">Auswirkungen auf Umwelt:</h4>
+                    <ResultProgessComponent AnswerChoice="ProjectAnalysis.Nature" />
+                }
+                @if (Domain == QuestionDomainDTO.Gesellschaft)
+                {
+                    <h4 class="text-3xl text-bold">Auswirkungen auf Gesellschaft:</h4>
+                    <ResultProgessComponent AnswerChoice="ProjectAnalysis.Society" />
+                }
+            </div>
             @foreach (var answer in ProjectAnalysis.Answers.Where(a => a.Question.Domain == Domain))
             {
                 <div class="w-full">
